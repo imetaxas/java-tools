@@ -18,10 +18,11 @@
 11. SAML (Security Assertion Markup Language) utilities
 12. XML utilities
 13. ZIP utilities
+14. GZIP utilities
 
 Build
 -------
 mvn package
 
-
-[gh-pages-link]: https://imetaxas.github.io/java-tools/
+[gh-pages-shield]: https://img.shields.io/badge/main%20site-imetaxas.github.io/java-tools.png?style=flat
+[gh-pages-link]: https://imetaxas.github.io/java-tools
