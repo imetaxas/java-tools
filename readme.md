@@ -1,7 +1,7 @@
 
 # Java Tools
 =============
-[![Main Site][gh-pages-shield]][gh-pages-link]
+[![Main Site]][gh-pages-link]
 
 ## A collection of re-usable Java classes.
 
@@ -22,3 +22,6 @@
 Build
 -------
 mvn package
+
+
+[gh-pages-link]: https://imetaxas.github.io/java-tools/
