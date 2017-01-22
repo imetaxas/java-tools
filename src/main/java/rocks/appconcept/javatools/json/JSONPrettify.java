@@ -1,8 +1,8 @@
 package rocks.appconcept.javatools.json;
 
-import rocks.appconcept.javatools.collections.Maps;
 import rocks.appconcept.javatools.parser.Patterns;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -12,19 +12,23 @@ import java.util.regex.Pattern;
  */
 public class JSONPrettify {
 
+    private static Map<String, String> meta;
+    private static Pattern escapable = Pattern.compile("[\\\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]");
+
     private JSONPrettify() {
     }
 
-    private static Map<String, String> meta = Maps.map(
-            "\b", "\\b",
-            "\t", "\\t",
-            "\n", "\\n",
-            "\f", "\\f",
-            "\r", "\\r",
-            "\"", "\\\"",
-            "\\", "\\\\"
-    );
-    private static Pattern escapable = Pattern.compile("[\\\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]");
+    static {
+        meta = new HashMap<>();
+        meta.put("\b", "\\b");
+        meta.put("\t", "\\t");
+        meta.put("\n", "\\n");
+        meta.put("\f", "\\f");
+        meta.put("\r", "\\r");
+        meta.put("\"", "\\\"");
+        meta.put("\\", "\\\\");
+    }
+
 
     public static String prettify(String json) {
         return prettify(json, "  ");
@@ -68,7 +72,9 @@ public class JSONPrettify {
                     JSONObject child = iterator.next();
                     out.append(prefix).append(indentation);
                     print(child, out, prefix + indentation, indentation);
-                    if (iterator.hasNext()) out.append(",");
+                    if (iterator.hasNext()) {
+                        out.append(",");
+                    }
                     out.append("\n");
                 }
                 out.append(prefix).append("]");
@@ -81,7 +87,9 @@ public class JSONPrettify {
                 quote(entry.getKey(), out);
                 out.append("\": ");
                 print(entry.getValue(), out, prefix + indentation, indentation);
-                if (iterator.hasNext()) out.append(",");
+                if (iterator.hasNext()) {
+                    out.append(",");
+                }
                 out.append("\n");
             }
             out.append(prefix).append("}");
@@ -90,7 +98,9 @@ public class JSONPrettify {
 
     private static void quote(String s, StringBuilder out) {
         Patterns.replaceAll(escapable, s, out, r -> {
-            if (meta.containsKey(r.group())) return meta.get(r.group());
+            if (meta.containsKey(r.group())) {
+                return meta.get(r.group());
+            }
             String x = "0000" + Integer.toHexString(r.group().charAt(0));
             return "\\u" + (x.substring(x.length() - 4));
         });

@@ -6,7 +6,7 @@
 
 1.  Efficiency search for the occurrences of a sequence of bytes within a byte array
 2.  Hash hex
-3.  Generic static Map constructors
+3.  Generics
 4.  File utilities
 5.  Stream utilities
 6.  JSON utilities
@@ -18,7 +18,6 @@
 12. XML utilities
 13. ZIP utilities
 14. GZIP utilities
-15. Generics
 
 Build
 -------

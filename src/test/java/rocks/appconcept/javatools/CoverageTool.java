@@ -1,6 +1,6 @@
 package rocks.appconcept.javatools;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +15,7 @@ public class CoverageTool {
         Constructor<?>[] declaredConstructors = c.getDeclaredConstructors();
         Assert.assertEquals("Class does has have 1 declared constructor", 1, declaredConstructors.length);
         Constructor<?> declaredConstructor = declaredConstructors[0];
-        Assert.assertEquals("Constructor should be private", Modifier.PRIVATE, declaredConstructor.getModifiers()|Modifier.PRIVATE);
+        Assert.assertEquals("Constructor should be private", Modifier.PRIVATE, declaredConstructor.getModifiers() | Modifier.PRIVATE);
         try {
             declaredConstructor.setAccessible(true);
             declaredConstructor.newInstance();
