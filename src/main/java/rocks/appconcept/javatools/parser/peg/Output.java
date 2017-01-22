@@ -7,21 +7,22 @@ import java.util.List;
  * @author yanimetaxas
  */
 public class Output {
-    public final Object object;
-    public final List<Output> list;
 
-    public Output() {
-        object = null;
-        list = new ArrayList<>();
-    }
+  public final Object object;
+  public final List<Output> list;
 
-    public Output(Object constant) {
-        this.object = constant;
-        this.list = null;
-    }
+  public Output() {
+    object = null;
+    list = new ArrayList<>();
+  }
 
-    public String toString() {
-        return list != null ? list.toString() : String.valueOf(object);
-    }
+  public Output(Object constant) {
+    this.object = constant;
+    this.list = null;
+  }
+
+  public String toString() {
+    return list != null ? list.toString() : String.valueOf(object);
+  }
 
 }

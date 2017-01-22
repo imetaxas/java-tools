@@ -7,14 +7,15 @@ import junit.framework.TestCase;
  */
 public class AuthenticationRequestTest extends TestCase {
 
-    public void testHappy() throws Exception {
+  public void testHappy() throws Exception {
 
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest("abc123", "entity", "http://localhost/acs", "http://remote/idp");
+    AuthenticationRequest authenticationRequest = new AuthenticationRequest("abc123", "entity",
+        "http://localhost/acs", "http://remote/idp");
 
-        String redirectParameter = authenticationRequest.getRedirectParameter();
-        String postHtml = authenticationRequest.getPostHtml("relay");
+    String redirectParameter = authenticationRequest.getRedirectParameter();
+    String postHtml = authenticationRequest.getPostHtml("relay");
 
-        assertNotNull(redirectParameter);
-        assertNotNull(postHtml);
-    }
+    assertNotNull(redirectParameter);
+    assertNotNull(postHtml);
+  }
 }
