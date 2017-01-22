@@ -18,6 +18,7 @@
 12. XML utilities
 13. ZIP utilities
 14. GZIP utilities
+15. InetAddress utilities
 
 Build
 -------
