@@ -19,6 +19,7 @@
 13. ZIP utilities
 14. GZIP utilities
 15. InetAddress utilities
+16. Exception utilities
 
 Build
 -------
