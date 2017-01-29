@@ -12,17 +12,13 @@ public class ExceptionUtils {
 
   /**
    * Safely Ignore a Throwable or rethrow if it is a Throwable that should not be ignored.
-   * @param t
    */
-  public static void safelyIgnoreException(Throwable t)
-  {
-    if (t instanceof ThreadDeath)
-    {
+  public static void safelyIgnoreException(Throwable t) {
+    if (t instanceof ThreadDeath) {
       throw (ThreadDeath) t;
     }
 
-    if (t instanceof OutOfMemoryError)
-    {
+    if (t instanceof OutOfMemoryError) {
       throw (OutOfMemoryError) t;
     }
 

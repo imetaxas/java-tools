@@ -1,4 +1,4 @@
-package rocks.appconcept.javatools.reflection.retriever;
+package rocks.appconcept.javatools.reflection;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

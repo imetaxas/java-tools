@@ -4,17 +4,17 @@ package rocks.appconcept.javatools.json;
  * Utility class for writing JSON documents. Example:
  *
  * JSONStream json = new JSONStream();   // CURRENT STREAM: json.object();                        //
- * { json.value("prop1", "a string");      // {"prop":"a string" json.value("prop2", 12.4);
- *   // {"prop":"a string","prop2":12.4 json.value("prop3", false);           // {"prop":"a
+ * { json.value("prop1", "a string");      // {"prop":"a string" json.value("prop2", 12.4); //
+ * {"prop":"a string","prop2":12.4 json.value("prop3", false);           // {"prop":"a
  * string","prop2":12.4,"prop3":false json.list("listprop");                // {"prop":"a
  * string","prop2":12.4,"prop3":false,"listprop":[ json.value("another string");         //
- * {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another string" json.value(12.5);
- *                // {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another string",12.5
- * json.value(true);                     // {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another
+ * {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another string" json.value(12.5); //
+ * {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another string",12.5 json.value(true);
+ *                     // {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another
  * string",12.5,true json.endlist();                       // {"prop":"a
- * string","prop2":12.4,"prop3":false,"listprop":["another string",12.5,true] json.endobject();
- *                // {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another
- * string",12.5,true]} String x = json.toString();
+ * string","prop2":12.4,"prop3":false,"listprop":["another string",12.5,true] json.endobject(); //
+ * {"prop":"a string","prop2":12.4,"prop3":false,"listprop":["another string",12.5,true]} String x =
+ * json.toString();
  *
  * @author yanimetaxas
  */

@@ -32,9 +32,9 @@ public class Gzip {
       int total = 0;
       while (total < len) {
         int read = gzin.read(content, total, len - total);
-          if (read == -1) {
-              break;
-          }
+        if (read == -1) {
+          break;
+        }
         total += read;
       }
       gzin.close();

@@ -28,9 +28,9 @@ public class ByteArrayFinder {
     int cursor = 0;
     while (cursor < data.length) {
       int found = indexOf(data, pattern, failure, cursor);
-        if (found == -1) {
-            break;
-        }
+      if (found == -1) {
+        break;
+      }
       result.add(found);
       cursor = found + pattern.length;
     }

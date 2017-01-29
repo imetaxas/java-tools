@@ -3,7 +3,6 @@ package rocks.appconcept.javatools.exception;
 import java.lang.reflect.Constructor;
 import org.junit.Assert;
 import org.junit.Test;
-import rocks.appconcept.javatools.inetaddress.InetAddressUtils;
 
 /**
  * Created by imeta on 22-Jan-17.

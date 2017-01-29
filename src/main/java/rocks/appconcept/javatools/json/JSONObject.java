@@ -296,12 +296,12 @@ public abstract class JSONObject {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
       JSONObjectBoolean that = (JSONObjectBoolean) o;
       return value == that.value;
     }
@@ -431,12 +431,12 @@ public abstract class JSONObject {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
       JSONObjectString that = (JSONObjectString) o;
       return !(value != null ? !value.equals(that.value) : that.value != null);
     }
@@ -487,12 +487,12 @@ public abstract class JSONObject {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       JSONObjectNumber that = (JSONObjectNumber) o;
       return !(value != null ? !value.equals(that.value) : that.value != null);
@@ -566,12 +566,12 @@ public abstract class JSONObject {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       JSONObjectObject that = (JSONObjectObject) o;
       return !(value != null ? !value.equals(that.value) : that.value != null);
@@ -645,12 +645,12 @@ public abstract class JSONObject {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
 
       JSONObjectList that = (JSONObjectList) o;
       return !(value != null ? !value.equals(that.value) : that.value != null);
@@ -664,9 +664,9 @@ public abstract class JSONObject {
   private static class JSONObjectParser {
 
     public JSONObject read(String json) {
-        if (json == null) {
-            return JSONObject.NULL;
-        }
+      if (json == null) {
+        return JSONObject.NULL;
+      }
       return read(new StringCharacterIterator(json));
     }
 
@@ -674,9 +674,9 @@ public abstract class JSONObject {
       skipWhitespace(json);
       JSONObject value = value(json);
       skipWhitespace(json);
-        if (json.current() != CharacterIterator.DONE) {
-            exception(json);
-        }
+      if (json.current() != CharacterIterator.DONE) {
+        exception(json);
+      }
       return value;
     }
 
@@ -692,17 +692,17 @@ public abstract class JSONObject {
       } else if (c == '[') {
         return new JSONObjectList(array(json));
       } else if (c == 't') {
-          if (c(json) == 'r' && c(json) == 'u' && c(json) == 'e') {
-              return JSONObject.TRUE;
-          }
+        if (c(json) == 'r' && c(json) == 'u' && c(json) == 'e') {
+          return JSONObject.TRUE;
+        }
       } else if (c == 'f') {
-          if (c(json) == 'a' && c(json) == 'l' && c(json) == 's' && c(json) == 'e') {
-              return JSONObject.FALSE;
-          }
+        if (c(json) == 'a' && c(json) == 'l' && c(json) == 's' && c(json) == 'e') {
+          return JSONObject.FALSE;
+        }
       } else if (c == 'n') {
-          if (c(json) == 'u' && c(json) == 'l' && c(json) == 'l') {
-              return JSONObject.NULL;
-          }
+        if (c(json) == 'u' && c(json) == 'l' && c(json) == 'l') {
+          return JSONObject.NULL;
+        }
       }
       exception(json);
       return null;
@@ -714,27 +714,27 @@ public abstract class JSONObject {
       while ((c = c(json)) != '"') {
         if (c == '\\') {
           c = c(json);
-            if (c == '"') {
-                s.append('"');
-            } else if (c == '\\') {
-                s.append('\\');
-            } else if (c == '/') {
-                s.append('/');
-            } else if (c == 'b') {
-                s.append('\b');
-            } else if (c == 'f') {
-                s.append('\f');
-            } else if (c == 'n') {
-                s.append('\n');
-            } else if (c == 'r') {
-                s.append('\r');
-            } else if (c == 't') {
-                s.append('\t');
-            } else if (c == 'u') {
-                s.append(unicode(json));
-            } else {
-                exception(json);
-            }
+          if (c == '"') {
+            s.append('"');
+          } else if (c == '\\') {
+            s.append('\\');
+          } else if (c == '/') {
+            s.append('/');
+          } else if (c == 'b') {
+            s.append('\b');
+          } else if (c == 'f') {
+            s.append('\f');
+          } else if (c == 'n') {
+            s.append('\n');
+          } else if (c == 'r') {
+            s.append('\r');
+          } else if (c == 't') {
+            s.append('\t');
+          } else if (c == 'u') {
+            s.append(unicode(json));
+          } else {
+            exception(json);
+          }
         } else if (Character.isValidCodePoint(c) && !Character.isISOControl(c)) {
           s.append(c);
         } else {
@@ -749,11 +749,11 @@ public abstract class JSONObject {
       boolean isFloatingPoint = false;
 
       StringBuilder s = new StringBuilder();
-        if (c(json) == '-') {
-            s.append('-');
-        } else {
-            json.previous();
-        }
+      if (c(json) == '-') {
+        s.append('-');
+      } else {
+        json.previous();
+      }
 
       length += addDigits(json, s);
 
@@ -775,11 +775,11 @@ public abstract class JSONObject {
       if (c == 'e' || c == 'E') {
         s.append(c);
         c = c(json);
-          if (c == '+' || c == '-') {
-              s.append(c);
-          } else {
-              json.previous();
-          }
+        if (c == '+' || c == '-') {
+          s.append(c);
+        } else {
+          json.previous();
+        }
         addDigits(json, s);
         isFloatingPoint = true;
       } else if (c != CharacterIterator.DONE) {
@@ -795,17 +795,17 @@ public abstract class JSONObject {
       while (true) {
         skipWhitespace(json);
         char c = c(json);
-          if (c == '}') {
-              break;
-          }
-          if (c != '"') {
-              exception(json);
-          }
+        if (c == '}') {
+          break;
+        }
+        if (c != '"') {
+          exception(json);
+        }
         String key = string(json);
         skipWhitespace(json);
-          if (c(json) != ':') {
-              exception(json);
-          }
+        if (c(json) != ':') {
+          exception(json);
+        }
         skipWhitespace(json);
         JSONObject value = value(json);
         skipWhitespace(json);
@@ -829,9 +829,9 @@ public abstract class JSONObject {
       while (true) {
         skipWhitespace(json);
         char c = c(json);
-          if (c == ']') {
-              break;
-          }
+        if (c == ']') {
+          break;
+        }
         json.previous();
         array.add(value(json));
         skipWhitespace(json);
@@ -854,9 +854,9 @@ public abstract class JSONObject {
       for (ret = 0; Character.isDigit(c); ++ret, c = cOrDone(json)) {
         s.append(c);
       }
-        if (c != CharacterIterator.DONE) {
-            json.previous();
-        }
+      if (c != CharacterIterator.DONE) {
+        json.previous();
+      }
       return ret;
     }
 
@@ -866,15 +866,15 @@ public abstract class JSONObject {
 
     private int hex(CharacterIterator json) {
       char c = c(json);
-        if (c >= '0' && c <= '9') {
-            return c - '0';
-        }
-        if (c >= 'a' && c <= 'f') {
-            return c - 'a' + 10;
-        }
-        if (c >= 'A' && c <= 'F') {
-            return c - 'A' + 10;
-        }
+      if (c >= '0' && c <= '9') {
+        return c - '0';
+      }
+      if (c >= 'a' && c <= 'f') {
+        return c - 'a' + 10;
+      }
+      if (c >= 'A' && c <= 'F') {
+        return c - 'A' + 10;
+      }
       exception(json);
       return 0;
     }
@@ -885,13 +885,13 @@ public abstract class JSONObject {
       int index = json.getIndex();
       json.setIndex(Math.max(0, json.getIndex() - 20));
       for (int i = 0; i < 20; ++i) {
-          if (json.getIndex() == index) {
-              s.append("!");
-          }
+        if (json.getIndex() == index) {
+          s.append("!");
+        }
         s.append(json.current());
-          if (json.next() == CharacterIterator.DONE) {
-              break;
-          }
+        if (json.next() == CharacterIterator.DONE) {
+          break;
+        }
       }
       throw new IllegalArgumentException(
           "Malformed JSON near index " + index + ". (" + s.toString() + ")");
@@ -906,17 +906,18 @@ public abstract class JSONObject {
 
     private char c(CharacterIterator json) {
       char c = json.current();
-        if (c == CharacterIterator.DONE) {
-            exception(json);
-        }
+      if (c == CharacterIterator.DONE) {
+        exception(json);
+      }
       json.next();
       return c;
     }
 
     private char cOrDone(CharacterIterator json) {
       char c = json.current();
-      if (c != CharacterIterator.DONE)
+      if (c != CharacterIterator.DONE) {
         json.next();
+      }
       return c;
     }
   }

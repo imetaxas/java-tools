@@ -1,4 +1,4 @@
-package rocks.appconcept.javatools.reflection.retriever;
+package rocks.appconcept.javatools.reflection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 import org.junit.Test;
+import rocks.appconcept.javatools.reflection.ReflectionUtils;
 
 /**
  * Created by imeta on 22-Jan-17.
@@ -217,8 +218,10 @@ public class ReflectionUtilsTest {
 
     Map<String, Field> test2 = ReflectionUtils.getDeepDeclaredFieldMap(Child.class);
     assertEquals(2, test2.size());
-    assertTrue(test2.containsKey("rocks.appconcept.javatools.reflection.retriever.ReflectionUtilsTest$Parent.foo"));
-    assertFalse(test2.containsKey("rocks.appconcept.javatools.reflection.retriever.ReflectionUtilsTest$Child.foo"));
+    assertTrue(test2.containsKey(
+        "rocks.appconcept.javatools.reflection.ReflectionUtilsTest$Parent.foo"));
+    assertFalse(test2.containsKey(
+        "rocks.appconcept.javatools.reflection.ReflectionUtilsTest$Child.foo"));
   }
 
   @Test
