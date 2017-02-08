@@ -20,6 +20,7 @@
 14. GZIP utilities
 15. InetAddress utilities
 16. Exception utilities
+17. Security Manager
 
 Build
 -------
