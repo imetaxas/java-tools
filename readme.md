@@ -2,7 +2,7 @@
 
 [![Main Site][gh-pages-shield]][gh-pages-link]
 
-## A collection of re-usable Java classes.
+## A collection of tested re-usable Java classes.
 
 1.  Efficiency search for the occurrences of a sequence of bytes within a byte array
 2.  Hash hex
