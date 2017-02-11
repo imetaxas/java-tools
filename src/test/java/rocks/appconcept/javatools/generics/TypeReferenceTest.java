@@ -2,9 +2,12 @@ package rocks.appconcept.javatools.generics;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
@@ -37,8 +40,8 @@ public class TypeReferenceTest {
     List<String> stringList = new TypeReference<ArrayList<String>>() {}.newInstance();
     List genericList = new TypeReference<ArrayList>() {}.newInstance();
 
-    assertNotNull(stringList);
-    assertNotNull(genericList);
+    assertThat(Collections.emptyList(), is(stringList));
+    assertThat(Collections.emptyList(), is(genericList));
   }
 }
 
