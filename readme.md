@@ -21,6 +21,7 @@
 15. InetAddress utilities
 16. Exception utilities
 17. Security Manager
+18. Conditions using Consumer and Supplier - Effective Java: Avoid Unnecessary use of checked exceptions
 
 Build
 -------
