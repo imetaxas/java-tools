@@ -11,7 +11,7 @@ public class ProfilerTest extends TestCase {
 
   public void testBasicOperation() throws Exception {
 
-    CoverageTool.callPrivateConstructor(Profiler.class);
+    CoverageTool.testPrivateConstructor(Profiler.class);
 
     AtomicInteger counter = new AtomicInteger(0);
     String profile = Profiler.sampling(10, () -> {

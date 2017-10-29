@@ -31,7 +31,7 @@ public class SystemExitTest {
 
   @AfterClass
   public static void coverageHack() throws Exception {
-    CoverageTool.callPrivateConstructor(SystemExit.class);
+    CoverageTool.testPrivateConstructor(SystemExit.class);
   }
 
 }

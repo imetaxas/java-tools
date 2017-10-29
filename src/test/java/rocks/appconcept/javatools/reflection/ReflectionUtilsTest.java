@@ -19,7 +19,9 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
+import org.junit.After;
 import org.junit.Test;
+import rocks.appconcept.javatools.CoverageTool;
 import rocks.appconcept.javatools.reflection.ReflectionUtils;
 
 /**
@@ -235,4 +237,8 @@ public class ReflectionUtilsTest {
     assertNull(ReflectionUtils.getClassAnnotation(null, null));
   }
 
+  @After
+  public void tearDown() throws Exception {
+    CoverageTool.testPrivateConstructor(ReflectionUtils.class);
+  }
 }

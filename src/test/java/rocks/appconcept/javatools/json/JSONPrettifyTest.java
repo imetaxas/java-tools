@@ -10,7 +10,7 @@ public class JSONPrettifyTest extends TestCase {
 
   public void testBasicOperation() throws Exception {
 
-    CoverageTool.callPrivateConstructor(JSONPrettify.class);
+    CoverageTool.testPrivateConstructor(JSONPrettify.class);
 
     String prettify = JSONPrettify.prettify("[{\"name\":\"yani\"},{\"property\":true}]");
     assertEquals("[\n" +

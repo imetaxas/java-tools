@@ -9,7 +9,7 @@ import rocks.appconcept.javatools.CoverageTool;
 public class HashTest extends TestCase {
 
   public void testHappyPaths() throws Exception {
-    CoverageTool.callPrivateConstructor(Hash.class);
+    CoverageTool.testPrivateConstructor(Hash.class);
 
     String hex = Hash.hex("yani".getBytes());
     assertEquals("79616e69", hex);

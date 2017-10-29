@@ -30,7 +30,9 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListMap;
+import org.junit.After;
 import org.junit.Test;
+import rocks.appconcept.javatools.CoverageTool;
 
 /**
  * Created by imeta on 29-Jan-17.
@@ -288,6 +290,11 @@ public class DeepEqualsTest {
     boolean one = DeepEquals.deepEquals(new ArrayList<String>(), new EmptyClass());
     boolean two = DeepEquals.deepEquals(new EmptyClass(), new ArrayList<String>());
     assert one == two;
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    CoverageTool.testPrivateConstructor(DeepEquals.class);
   }
 
   private static class EmptyClass {

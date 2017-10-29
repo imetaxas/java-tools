@@ -172,7 +172,7 @@ public class JSONTest extends TestCase {
   }
 
   public void testStatic() throws Exception {
-    CoverageTool.callPrivateConstructor(JSON.class);
+    CoverageTool.testPrivateConstructor(JSON.class);
   }
 
   private enum Color {

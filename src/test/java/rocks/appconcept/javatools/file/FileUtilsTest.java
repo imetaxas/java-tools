@@ -22,7 +22,7 @@ public class FileUtilsTest extends TestCase {
   private static final int LARGE_SIZE = 1024 * 1024 * 10 + 1;
 
   public void testStaticClass() throws Exception {
-    CoverageTool.callPrivateConstructor(FileUtils.class);
+    CoverageTool.testPrivateConstructor(FileUtils.class);
   }
 
   public void testCopyStream() throws Exception {

@@ -13,7 +13,7 @@ import rocks.appconcept.javatools.CoverageTool;
 public class StreamUtilsTest extends TestCase {
 
   public void testStatic() throws Exception {
-    CoverageTool.callPrivateConstructor(StreamUtils.class);
+    CoverageTool.testPrivateConstructor(StreamUtils.class);
   }
 
   public void testCapture() throws Exception {

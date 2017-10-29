@@ -10,7 +10,7 @@ import rocks.appconcept.javatools.CoverageTool;
 public class ByteArrayFinderTest extends TestCase {
 
   public void testHappyPath() throws Exception {
-    CoverageTool.callPrivateConstructor(ByteArrayFinder.class);
+    CoverageTool.testPrivateConstructor(ByteArrayFinder.class);
 
     byte[] pattern = {1, 2, 3};
     byte[] data = {0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 1, 2, 1, 2, 1, 1, 1, 3, 1, 3, 1, 2, 3};

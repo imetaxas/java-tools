@@ -15,7 +15,7 @@ import rocks.appconcept.javatools.CoverageTool;
 public class PatternsTest extends TestCase {
 
   public void testStatic() throws Exception {
-    CoverageTool.callPrivateConstructor(Patterns.class);
+    CoverageTool.testPrivateConstructor(Patterns.class);
   }
 
   public void testAllMatches() throws Exception {

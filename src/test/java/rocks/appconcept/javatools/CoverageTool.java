@@ -10,7 +10,7 @@ import org.junit.Assert;
  */
 public class CoverageTool {
 
-  public static void callPrivateConstructor(Class<?> c) {
+  public static void testPrivateConstructor(Class<?> c) {
     Constructor<?>[] declaredConstructors = c.getDeclaredConstructors();
     Assert
         .assertEquals("Class does has have 1 declared constructor", 1, declaredConstructors.length);
