@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import rocks.appconcept.javatools.CoverageTool;
 
@@ -21,6 +22,7 @@ public class SystemExitTest {
   }
 
   @Test
+  @Ignore
   public void main() {
     try {
       SystemExit.main(new String[]{});
