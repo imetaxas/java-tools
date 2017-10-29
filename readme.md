@@ -2,6 +2,8 @@
 
 [![Main Site][gh-pages-shield]][gh-pages-link]
 [![Build Status](https://travis-ci.org/imetaxas/java-tools.svg?branch=master)](https://travis-ci.org/imetaxas/java-tools)
+[![Coverage Status](https://coveralls.io/repos/github/imetaxas/java-tools/badge.svg?branch=master)](https://coveralls.io/github/imetaxas/java-tools?branch=master)
+
 ## A collection of tested re-usable Java classes.
 
 1.  Efficiency search for the occurrences of a sequence of bytes within a byte array
