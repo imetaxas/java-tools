@@ -1,7 +1,7 @@
 language: java
 sudo: false # faster builds
 
-script: "mvn cobertura:cobertura"
+script: "mvn cobertura:cobertura coveralls:report"
 
 notifications:
   email: false
