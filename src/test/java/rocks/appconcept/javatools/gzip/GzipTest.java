@@ -1,16 +1,23 @@
 package rocks.appconcept.javatools.gzip;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import org.junit.AfterClass;
 import org.junit.Test;
+import rocks.appconcept.javatools.CoverageTool;
+import rocks.appconcept.javatools.security.SystemExit;
 
 /**
  * Created by imeta on 26-Dec-16.
  */
 public class GzipTest {
 
-  byte rawData[] = {
+  private byte rawData[] = {
       0x50, 0x4B, 0x03, 0x04, 0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0xF0, 0x63,
       (byte) 0x90, 0x46, (byte) 0x8B, 0x73, (byte) 0x95, (byte) 0xAC, 0x09, 0x00, 0x00, 0x00, 0x09,
       0x00,
@@ -38,9 +45,9 @@ public class GzipTest {
         new String(decompressed, StandardCharsets.UTF_8));
   }
 
-  @Test
-  public void decompress() throws Exception {
-
+  @AfterClass
+  public static void coverageHack() throws Exception {
+    CoverageTool.testPrivateConstructor(Gzip.class);
   }
 
 }
