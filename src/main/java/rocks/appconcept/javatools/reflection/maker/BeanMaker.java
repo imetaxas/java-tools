@@ -8,6 +8,9 @@ import java.util.Map;
  */
 public class BeanMaker {
 
+  private BeanMaker() {
+  }
+
   public static byte[] makeBean(String classname, String baseclass, Map<String, String> properties,
       Map<String, String> lists) {
     ClassFile classFile = new ClassFile(
