@@ -16,6 +16,9 @@ import rocks.appconcept.javatools.io.StreamUtils;
  */
 public final class Profiler {
 
+  private Profiler() {
+  }
+
   public static String sampling(final long repetitions, final ProfileBlock runnable) {
     List<String> traces = new ArrayList<>();
     try {
@@ -92,10 +95,6 @@ public final class Profiler {
    * (Should be @FunctionalInterface in Java 1.8)
    */
   public interface ProfileBlock {
-
     void run() throws Exception;
-  }
-
-  private Profiler() {
   }
 }

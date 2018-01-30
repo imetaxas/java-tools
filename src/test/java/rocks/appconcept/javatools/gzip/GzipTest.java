@@ -1,16 +1,11 @@
 package rocks.appconcept.javatools.gzip;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
 
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.Test;
 import rocks.appconcept.javatools.CoverageTool;
-import rocks.appconcept.javatools.security.SystemExit;
 
 /**
  * Created by imeta on 26-Dec-16.
