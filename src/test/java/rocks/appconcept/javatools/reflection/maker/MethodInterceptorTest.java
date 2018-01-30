@@ -1,14 +1,12 @@
 package rocks.appconcept.javatools.reflection.maker;
 
-import static org.hamcrest.CoreMatchers.any;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import org.junit.After;
 import org.junit.Test;
-import org.mockito.Mockito;
 import rocks.appconcept.javatools.CoverageTool;
-import static org.junit.Assert.assertEquals;
 /**
  * @author yanimetaxas
  * @since 30-Jan-18

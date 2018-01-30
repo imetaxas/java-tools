@@ -1,7 +1,5 @@
 package rocks.appconcept.javatools.parser;
 
-import java.util.ArrayList;
-import java.util.List;
 import junit.framework.TestCase;
 import rocks.appconcept.javatools.parser.peg.AstQuotedString;
 

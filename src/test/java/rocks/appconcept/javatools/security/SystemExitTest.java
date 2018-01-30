@@ -2,12 +2,10 @@ package rocks.appconcept.javatools.security;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import rocks.appconcept.javatools.CoverageTool;
 
