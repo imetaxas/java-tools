@@ -2,7 +2,9 @@ package rocks.appconcept.javatools.security;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -28,6 +30,11 @@ public class SystemExitTest {
     } catch (ExitException ee) {
       assertThat(0, is(ee.getStatus()));
     }
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    System.setSecurityManager(null);
   }
 
   @AfterClass

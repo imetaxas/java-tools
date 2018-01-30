@@ -12,6 +12,7 @@ public class SystemExit {
     try {
       System.exit(0);
     } catch (ExitException e) {
+      e.printStackTrace();
     }
   }
 }
