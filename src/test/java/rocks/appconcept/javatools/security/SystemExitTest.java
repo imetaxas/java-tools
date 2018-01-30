@@ -2,6 +2,7 @@ package rocks.appconcept.javatools.security;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,12 +23,27 @@ public class SystemExitTest {
   }
 
   @Test
-  public void main() {
+  public void testMain_WhenExisting() {
     try {
-      SystemExit.main(new String[]{});
+      SystemExit.main(new String[]{"-1"});
+    } catch (ExitException ee) {
+      assertThat(-1, is(ee.getStatus()));
+    }
+  }
+
+  @Test
+  public void testMain_Pass() {
+    try {
+      SystemExit.main(new String[]{"0"});
     } catch (ExitException ee) {
       assertThat(0, is(ee.getStatus()));
     }
+  }
+
+  @Test
+  public void testMain_WhenArgumentUnParsable() {
+    SystemExit.main(new String[]{""});
+    assertTrue(true);
   }
 
   @After

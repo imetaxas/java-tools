@@ -23,6 +23,13 @@ public class TypeReferenceTest {
     assertEquals(typeReference.getType(), String.class);
   }
 
+  @Test(expected = RuntimeException.class)
+  public void getType_WhenMissingTypeParameter() throws Exception {
+    TypeReference typeReference = new TypeReference(){};
+
+    typeReference.getType();
+  }
+
   @Test
   public void getType_OfAnInstance() throws Exception {
 
@@ -31,6 +38,12 @@ public class TypeReferenceTest {
 
     assertEquals(exampleInteger.getType(), Integer.class);
     assertEquals(exampleString.getType(), String.class);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void getType_OfAnInstance_WhenMissingTypeParameter() throws Exception {
+    ExampleGenericClass exampleInteger = new ExampleGenericClass(){};
+    exampleInteger.getType();
   }
 
   @Test
