@@ -13,7 +13,7 @@ import rocks.appconcept.javatools.CoverageTool;
 /**
  * Special case - testing a System.exit() call by by-passing the security manager
  *
- * Created by yanimetaxas on 2017-02-07.
+ * Created by yanimetaxas on 2017-02-07 .
  */
 public class SystemExitTest {
 
