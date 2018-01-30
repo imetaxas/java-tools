@@ -1,9 +1,8 @@
 package rocks.appconcept.javatools.reflection.maker;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
-import java.util.Map;
 import org.junit.After;
 import org.junit.Test;
 import rocks.appconcept.javatools.CoverageTool;
@@ -43,8 +42,9 @@ public class BeanMakerTest {
 
     byte[] beanBytes = BeanMaker.makeBean("TestBean", "Object", properties, lists);
 
-    System.out.println(new String(beanBytes, "UTF-8"));
-    assertNotNull(beanBytes);
+    //System.out.println(new String(beanBytes, "UTF-8"));
+    assertEquals(ReflectionUtils.getClassNameFromByteCode(beanBytes), "TestBean");
+
   }
 
   @After

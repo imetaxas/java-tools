@@ -9,6 +9,9 @@ public class SystemExit {
   }
 
   public static void main(String[] args) {
-    System.exit(0);
+    try {
+      System.exit(0);
+    } catch (ExitException e) {
+    }
   }
 }

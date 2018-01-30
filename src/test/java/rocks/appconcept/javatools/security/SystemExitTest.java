@@ -22,7 +22,6 @@ public class SystemExitTest {
   }
 
   @Test
-  @Ignore
   public void main() {
     try {
       SystemExit.main(new String[]{});
