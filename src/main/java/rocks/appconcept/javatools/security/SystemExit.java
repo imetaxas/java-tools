@@ -9,6 +9,13 @@ public class SystemExit {
   }
 
   public static void main(String[] args) {
-    System.exit(0);
+    try {
+      System.exit(Integer.parseInt(args[0]));
+    } catch (ExitException e) {
+      if(e.getStatus() == -1) {
+        throw e;
+      }
+    } catch (Exception e){
+    }
   }
 }

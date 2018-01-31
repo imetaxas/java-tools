@@ -586,50 +586,61 @@ public abstract class JSONObject {
 
     private List<JSONObject> value;
 
-    public JSONObjectList(List<JSONObject> array) {
+    private JSONObjectList(List<JSONObject> array) {
       this.value = array;
     }
 
+    @Override
     public JSONObject get(int index) {
       return index >= 0 && index < value.size() ? value.get(index) : JSONObject.UNDEFINED;
     }
 
+    @Override
     public void set(int index, JSONObject value) {
       this.value.set(index, value);
     }
 
+    @Override
     public boolean asBoolean() {
       return true;
     }
 
+    @Override
     public Double asDouble() {
       return Double.NaN;
     }
 
+    @Override
     public Float asFloat() {
       return Float.NaN;
     }
 
+    @Override
     public Integer asInteger() {
       return null;
     }
 
+    @Override
     public Long asLong() {
       return null;
     }
 
+    @Override
     public String asString() {
       return value.toString();
     }
 
+    @Override
     public int length() {
       return value.size();
     }
 
+    @Override
     public boolean isList() {
       return true;
     }
 
+    @Override
     public String toJSON() {
       JSONStream out = new JSONStream();
       out.list();
@@ -642,22 +653,6 @@ public abstract class JSONObject {
 
     public Collection<JSONObject> values() {
       return value;
-    }
-
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      JSONObjectList that = (JSONObjectList) o;
-      return !(value != null ? !value.equals(that.value) : that.value != null);
-    }
-
-    public int hashCode() {
-      return value != null ? value.hashCode() : 0;
     }
   }
 
@@ -757,9 +752,14 @@ public abstract class JSONObject {
 
       length += addDigits(json, s);
 
-      if (s.length() >= 3 && s.charAt(0) == '-' && s.charAt(1) == '0' && Character
-          .isDigit(s.charAt(2)) || s.length() >= 2 && s.charAt(0) == '0' && Character
-          .isDigit(s.charAt(1))) {
+      if (s.length() >= 3
+          &&
+          s.charAt(0) == '-'
+          && s.charAt(1) == '0'
+          && Character.isDigit(s.charAt(2))
+          || s.length() >= 2
+          && s.charAt(0) == '0'
+          && Character.isDigit(s.charAt(1))) {
         exception(json);
       }
 

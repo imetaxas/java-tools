@@ -25,7 +25,7 @@ public class SubclassMaker implements ClassConstants {
   /**
    * name of field for storing a proxy instance's invocation handler
    */
-  private final static String handlerFieldName = "h";
+  private static final String handlerFieldName = "h";
 
   /**
    * Generate a proxy class given a name and a list of proxy interfaces.
@@ -79,8 +79,7 @@ public class SubclassMaker implements ClassConstants {
    * maps method signature string to list of ProxyMethod objects for
    * proxy methods with that signature
    */
-  private Map<String, List<ProxyMethod>> proxyMethods =
-      new HashMap<>();
+  private Map<String, List<ProxyMethod>> proxyMethods = new HashMap<>();
 
   /**
    * count of ProxyMethod objects added to proxyMethods
@@ -179,16 +178,13 @@ public class SubclassMaker implements ClassConstants {
     if (fields.size() > 65535) {
       throw new IllegalArgumentException("field limit exceeded");
     }
-
     return writeClassFileToBytes();
   }
 
   private byte[] writeClassFileToBytes() {
-
             /* ============================================================
          * Step 3: Write the final class file.
          */
-
         /*
          * Make sure that constant pool indexes are reserved for the
          * following items before starting to write the final class file.
@@ -198,7 +194,6 @@ public class SubclassMaker implements ClassConstants {
     for (String anInterface1 : interfaces) {
       cp.getClass(dotToSlash(anInterface1));
     }
-
         /*
          * Disallow new constant pool additions beyond this point, since
          * we are about to write the final constant pool table.
@@ -207,7 +202,6 @@ public class SubclassMaker implements ClassConstants {
 
     ByteArrayOutputStream bout = new ByteArrayOutputStream();
     DataOutputStream dout = new DataOutputStream(bout);
-
     try {
             /*
              * Write all the items of the "ClassFile" structure.
@@ -219,8 +213,8 @@ public class SubclassMaker implements ClassConstants {
       dout.writeShort(CLASSFILE_MINOR_VERSION);
       // u2 major_version;
       dout.writeShort(CLASSFILE_MAJOR_VERSION);
-
-      cp.write(dout);             // (write constant pool)
+      // (write constant pool)
+      cp.write(dout);
 
       // u2 access_flags;
       dout.writeShort(ACC_PUBLIC | ACC_FINAL | ACC_SUPER);
@@ -235,31 +229,25 @@ public class SubclassMaker implements ClassConstants {
       for (String anInterface : interfaces) {
         dout.writeShort(cp.getClass(dotToSlash(anInterface)));
       }
-
       // u2 fields_count;
       dout.writeShort(fields.size());
       // field_info fields[fields_count];
       for (FieldInfo f : fields) {
         f.write(dout);
       }
-
       // u2 methods_count;
       dout.writeShort(methods.size());
       // method_info methods[methods_count];
       for (MethodInfo m : methods) {
         m.write(dout);
       }
-
       // u2 attributes_count;
       dout.writeShort(0); // (no ClassFile attributes for proxy classes)
-
     } catch (IOException e) {
       throw new InternalError("unexpected I/O Exception");
     }
-
     return bout.toByteArray();
   }
-
   /**
    * Add another method to be proxied, either by creating a new
    * ProxyMethod object or augmenting an old one for a duplicate
@@ -308,7 +296,6 @@ public class SubclassMaker implements ClassConstants {
     sigmethods.add(new ProxyMethod(name, parameterTypes, returnType,
         exceptionTypes, fromClass));
   }
-
   /**
    * For a given set of proxy methods with the same signature, check
    * that their return types are compatible according to the Proxy
@@ -327,7 +314,6 @@ public class SubclassMaker implements ClassConstants {
     if (methods.size() < 2) {
       return;
     }
-
         /*
          * List of return types that are not yet known to be
          * assignable from ("covered" by) any of the others.
@@ -354,7 +340,6 @@ public class SubclassMaker implements ClassConstants {
       ListIterator<Class> liter = uncoveredReturnTypes.listIterator();
       while (liter.hasNext()) {
         Class<?> uncoveredReturnType = liter.next();
-
                 /*
                  * If an existing uncovered return type is assignable
                  * to this new one, then we can forget the new one.
@@ -363,7 +348,6 @@ public class SubclassMaker implements ClassConstants {
           assert !added;
           continue nextNewReturnType;
         }
-
                 /*
                  * If the new return type is assignable to an existing
                  * uncovered one, then should replace the existing one
@@ -380,7 +364,6 @@ public class SubclassMaker implements ClassConstants {
           }
         }
       }
-
             /*
              * If we got through the list of existing uncovered return
              * types without an assignability relationship, then add
@@ -390,7 +373,6 @@ public class SubclassMaker implements ClassConstants {
         uncoveredReturnTypes.add(newReturnType);
       }
     }
-
         /*
          * We shouldn't end up with more than one return type that is
          * not assignable from any of the others.
@@ -403,8 +385,6 @@ public class SubclassMaker implements ClassConstants {
               " but incompatible return types: " + uncoveredReturnTypes);
     }
   }
-
-
   /**
    * A FieldInfo object contains information about a particular field
    * in the class being generated.  The class mirrors the data items of
@@ -420,7 +400,6 @@ public class SubclassMaker implements ClassConstants {
       this.name = name;
       this.descriptor = descriptor;
       this.accessFlags = accessFlags;
-
             /*
              * Make sure that constant pool indexes are reserved for the
              * following items before starting to write the final class file.
@@ -428,7 +407,6 @@ public class SubclassMaker implements ClassConstants {
       cp.getUtf8(name);
       cp.getUtf8(descriptor);
     }
-
     public void write(DataOutputStream out) throws IOException {
             /*
              * Write all the items of the "field_info" structure.
@@ -451,12 +429,10 @@ public class SubclassMaker implements ClassConstants {
    * "method_info" structures (see JVMS 4.7.3).
    */
   private static class ExceptionTableEntry {
-
     public short startPc;
     public short endPc;
     public short handlerPc;
     public short catchType;
-
     public ExceptionTableEntry(short startPc, short endPc,
         short handlerPc, short catchType) {
       this.startPc = startPc;
@@ -465,15 +441,12 @@ public class SubclassMaker implements ClassConstants {
       this.catchType = catchType;
     }
   }
-
-
   /**
    * A MethodInfo object contains information about a particular method
    * in the class being generated.  This class mirrors the data items of
    * the "method_info" structure of the class file format (see JVMS 4.6).
    */
   private class MethodInfo {
-
     public int accessFlags;
     public String name;
     public String descriptor;
@@ -487,7 +460,6 @@ public class SubclassMaker implements ClassConstants {
       this.name = name;
       this.descriptor = descriptor;
       this.accessFlags = accessFlags;
-
             /*
              * Make sure that constant pool indexes are reserved for the
              * following items before starting to write the final class file.
@@ -497,7 +469,6 @@ public class SubclassMaker implements ClassConstants {
       cp.getUtf8("Code");
       cp.getUtf8("Exceptions");
     }
-
     public void write(DataOutputStream out) throws IOException {
             /*
              * Write all the items of the "method_info" structure.
@@ -510,16 +481,12 @@ public class SubclassMaker implements ClassConstants {
       // u2 descriptor_index;
       out.writeShort(cp.getUtf8(descriptor));
       // u2 attributes_count;
-
       int attributeCount = 1;
       if (declaredExceptions.length > 0) {
         attributeCount += 1;
       }
-
       out.writeShort(attributeCount);  // (two method_info attributes:)
-
       // Write "Code" attribute. See JVMS section 4.7.3.
-
       // u2 attribute_name_index;
       out.writeShort(cp.getUtf8("Code"));
       // u4 attribute_length;
@@ -546,9 +513,7 @@ public class SubclassMaker implements ClassConstants {
       }
       // u2 attributes_count;
       out.writeShort(0);
-
       // write "Exceptions" attribute.  See JVMS section 4.7.4.
-
       if (declaredExceptions.length > 0) {
         // u2 attribute_name_index;
         out.writeShort(cp.getUtf8("Exceptions"));
@@ -563,7 +528,6 @@ public class SubclassMaker implements ClassConstants {
       }
     }
   }
-
   /**
    * A ProxyMethod object represents a proxy method in the proxy class
    * being generated: a method whose implementation will encode and
@@ -702,11 +666,9 @@ public class SubclassMaker implements ClassConstants {
 
         out.writeByte(opc_athrow);
       }
-
       if (minfo.code.size() > 65535) {
         throw new IllegalArgumentException("code size limit exceeded");
       }
-
       minfo.maxStack = 10;
       minfo.maxLocals = (short) (localSlot0 + 1);
       minfo.declaredExceptions = new short[exceptionTypes.length];
@@ -714,10 +676,8 @@ public class SubclassMaker implements ClassConstants {
         minfo.declaredExceptions[i] = cp.getClass(
             dotToSlash(exceptionTypes[i].getName()));
       }
-
       return minfo;
     }
-
     /**
      * Generate code for wrapping an argument of the given type
      * whose value can be found at the specified local variable
@@ -730,7 +690,6 @@ public class SubclassMaker implements ClassConstants {
         throws IOException {
       if (type.isPrimitive()) {
         PrimitiveTypeInfo prim = PrimitiveTypeInfo.get(type);
-
         if (type == int.class ||
             type == boolean.class ||
             type == byte.class ||
@@ -746,18 +705,12 @@ public class SubclassMaker implements ClassConstants {
         } else {
           throw new AssertionError();
         }
-
         out.writeByte(opc_invokestatic);
-        out.writeShort(cp.getMethodRef(
-            prim.wrapperClassName,
-            "valueOf", prim.wrapperValueOfDesc));
-
+        out.writeShort(cp.getMethodRef(prim.wrapperClassName, "valueOf", prim.wrapperValueOfDesc));
       } else {
-
         code_aload(slot, out);
       }
     }
-
     /**
      * Generate code for unwrapping a return value of the given
      * type from the invocation handler's "invoke" method (as type
@@ -771,11 +724,8 @@ public class SubclassMaker implements ClassConstants {
 
         out.writeByte(opc_checkcast);
         out.writeShort(cp.getClass(prim.wrapperClassName));
-
         out.writeByte(opc_invokevirtual);
-        out.writeShort(cp.getMethodRef(
-            prim.wrapperClassName,
-            prim.unwrapMethodName, prim.unwrapMethodDesc));
+        out.writeShort(cp.getMethodRef(prim.wrapperClassName, prim.unwrapMethodName, prim.unwrapMethodDesc));
 
         if (type == int.class ||
             type == boolean.class ||
@@ -792,64 +742,43 @@ public class SubclassMaker implements ClassConstants {
         } else {
           throw new AssertionError();
         }
-
       } else {
-
         out.writeByte(opc_checkcast);
         out.writeShort(cp.getClass(dotToSlash(type.getName())));
-
         out.writeByte(opc_areturn);
       }
     }
-
     /**
      * Generate code for initializing the static field that stores
      * the Method object for this proxy method.  The code is written
      * to the supplied stream.
      */
-    private void codeFieldInitialization(DataOutputStream out)
-        throws IOException {
+    private void codeFieldInitialization(DataOutputStream out) throws IOException {
       codeClassForName(fromClass, out);
-
       code_ldc(cp.getString(methodName), out);
-
       code_ipush(parameterTypes.length, out);
-
       out.writeByte(opc_anewarray);
       out.writeShort(cp.getClass("java/lang/Class"));
-
       for (int i = 0; i < parameterTypes.length; i++) {
-
         out.writeByte(opc_dup);
-
         code_ipush(i, out);
-
         if (parameterTypes[i].isPrimitive()) {
-          PrimitiveTypeInfo prim =
-              PrimitiveTypeInfo.get(parameterTypes[i]);
-
+          PrimitiveTypeInfo prim = PrimitiveTypeInfo.get(parameterTypes[i]);
           out.writeByte(opc_getstatic);
-          out.writeShort(cp.getFieldRef(
-              prim.wrapperClassName, "TYPE", "Ljava/lang/Class;"));
-
+          out.writeShort(cp.getFieldRef(prim.wrapperClassName, "TYPE", "Ljava/lang/Class;"));
         } else {
           codeClassForName(parameterTypes[i], out);
         }
-
         out.writeByte(opc_aastore);
       }
-
       out.writeByte(opc_invokevirtual);
       out.writeShort(cp.getMethodRef(
           "java/lang/Class",
-          "getMethod",
-          "(Ljava/lang/String;[Ljava/lang/Class;)" +
+          "getMethod", "(Ljava/lang/String;[Ljava/lang/Class;)" +
               "Ljava/lang/reflect/Method;"));
 
       out.writeByte(opc_putstatic);
-      out.writeShort(cp.getFieldRef(
-          dotToSlash(className),
-          methodFieldName, "Ljava/lang/reflect/Method;"));
+      out.writeShort(cp.getFieldRef(dotToSlash(className), methodFieldName, "Ljava/lang/reflect/Method;"));
     }
   }
 
@@ -858,9 +787,7 @@ public class SubclassMaker implements ClassConstants {
    */
   private MethodInfo generateConstructor() throws IOException {
 
-    MethodInfo minfo = new MethodInfo(
-        "<init>", "(Ljava/lang/reflect/InvocationHandler;)V",
-        ACC_PUBLIC);
+    MethodInfo minfo = new MethodInfo("<init>", "(Ljava/lang/reflect/InvocationHandler;)V", ACC_PUBLIC);
 
     DataOutputStream out = new DataOutputStream(minfo.code);
 
@@ -876,13 +803,10 @@ public class SubclassMaker implements ClassConstants {
     out.writeShort(cp.getFieldRef(
         dotToSlash(className),
         handlerFieldName, "Ljava/lang/reflect/InvocationHandler;"));
-
     out.writeByte(opc_return);
-
     minfo.maxStack = 10;
     minfo.maxLocals = 2;
     minfo.declaredExceptions = new short[0];
-
     return minfo;
   }
 
@@ -890,149 +814,85 @@ public class SubclassMaker implements ClassConstants {
    * Generate the static initializer method for the proxy class.
    */
   private MethodInfo generateStaticInitializer() throws IOException {
-    MethodInfo minfo = new MethodInfo(
-        "<clinit>", "()V", ACC_STATIC);
+    MethodInfo minfo = new MethodInfo("<clinit>", "()V", ACC_STATIC);
 
     int localSlot0 = 1;
     short pc, tryBegin = 0, tryEnd;
 
     DataOutputStream out = new DataOutputStream(minfo.code);
-
     for (List<ProxyMethod> sigmethods : proxyMethods.values()) {
       for (ProxyMethod pm : sigmethods) {
         pm.codeFieldInitialization(out);
       }
     }
-
     out.writeByte(opc_return);
-
     tryEnd = pc = (short) minfo.code.size();
-
     minfo.exceptionTable.add(new ExceptionTableEntry(
         tryBegin, tryEnd, pc,
         cp.getClass("java/lang/NoSuchMethodException")));
-
     code_astore(localSlot0, out);
-
     out.writeByte(opc_new);
     out.writeShort(cp.getClass("java/lang/NoSuchMethodError"));
-
     out.writeByte(opc_dup);
-
     code_aload(localSlot0, out);
-
     out.writeByte(opc_invokevirtual);
     out.writeShort(cp.getMethodRef(
         "java/lang/Throwable", "getMessage", "()Ljava/lang/String;"));
-
     out.writeByte(opc_invokespecial);
     out.writeShort(cp.getMethodRef(
         "java/lang/NoSuchMethodError", "<init>", "(Ljava/lang/String;)V"));
-
     out.writeByte(opc_athrow);
-
     pc = (short) minfo.code.size();
-
     minfo.exceptionTable.add(new ExceptionTableEntry(
         tryBegin, tryEnd, pc,
         cp.getClass("java/lang/ClassNotFoundException")));
 
     code_astore(localSlot0, out);
-
     out.writeByte(opc_new);
     out.writeShort(cp.getClass("java/lang/NoClassDefFoundError"));
-
     out.writeByte(opc_dup);
-
     code_aload(localSlot0, out);
-
     out.writeByte(opc_invokevirtual);
-    out.writeShort(cp.getMethodRef(
-        "java/lang/Throwable", "getMessage", "()Ljava/lang/String;"));
-
+    out.writeShort(cp.getMethodRef("java/lang/Throwable", "getMessage", "()Ljava/lang/String;"));
     out.writeByte(opc_invokespecial);
     out.writeShort(cp.getMethodRef(
-        "java/lang/NoClassDefFoundError",
-        "<init>", "(Ljava/lang/String;)V"));
-
+        "java/lang/NoClassDefFoundError", "<init>", "(Ljava/lang/String;)V"));
     out.writeByte(opc_athrow);
-
     if (minfo.code.size() > 65535) {
       throw new IllegalArgumentException("code size limit exceeded");
     }
-
     minfo.maxStack = 10;
     minfo.maxLocals = (short) (localSlot0 + 1);
     minfo.declaredExceptions = new short[0];
-
     return minfo;
   }
-
-
     /*
      * =============== Code Generation Utility Methods ===============
      */
-
     /*
      * The following methods generate code for the load or store operation
      * indicated by their name for the given local variable.  The code is
      * written to the supplied stream.
      */
-
-  private void code_iload(int lvar, DataOutputStream out)
-      throws IOException {
+  private void code_iload(int lvar, DataOutputStream out) throws IOException {
     codeLocalLoadStore(lvar, opc_iload, opc_iload_0, out);
   }
-
-  private void code_lload(int lvar, DataOutputStream out)
-      throws IOException {
+  private void code_lload(int lvar, DataOutputStream out) throws IOException {
     codeLocalLoadStore(lvar, opc_lload, opc_lload_0, out);
   }
-
-  private void code_fload(int lvar, DataOutputStream out)
-      throws IOException {
+  private void code_fload(int lvar, DataOutputStream out) throws IOException {
     codeLocalLoadStore(lvar, opc_fload, opc_fload_0, out);
   }
-
-  private void code_dload(int lvar, DataOutputStream out)
-      throws IOException {
+  private void code_dload(int lvar, DataOutputStream out) throws IOException {
     codeLocalLoadStore(lvar, opc_dload, opc_dload_0, out);
   }
-
-  private void code_aload(int lvar, DataOutputStream out)
-      throws IOException {
+  private void code_aload(int lvar, DataOutputStream out) throws IOException {
     codeLocalLoadStore(lvar, opc_aload, opc_aload_0, out);
   }
-
-//  private void code_istore(int lvar, DataOutputStream out)
-//      throws IOException
-//  {
-//      codeLocalLoadStore(lvar, opc_istore, opc_istore_0, out);
-//  }
-
-//  private void code_lstore(int lvar, DataOutputStream out)
-//      throws IOException
-//  {
-//      codeLocalLoadStore(lvar, opc_lstore, opc_lstore_0, out);
-//  }
-
-//  private void code_fstore(int lvar, DataOutputStream out)
-//      throws IOException
-//  {
-//      codeLocalLoadStore(lvar, opc_fstore, opc_fstore_0, out);
-//  }
-
-//  private void code_dstore(int lvar, DataOutputStream out)
-//      throws IOException
-//  {
-//      codeLocalLoadStore(lvar, opc_dstore, opc_dstore_0, out);
-//  }
-
   private void code_astore(int lvar, DataOutputStream out)
       throws IOException {
     codeLocalLoadStore(lvar, opc_astore, opc_astore_0, out);
   }
-
   /**
    * Generate code for a load or store instruction for the given local
    * variable.  The code is written to the supplied stream.
@@ -1061,14 +921,12 @@ public class SubclassMaker implements ClassConstants {
       out.writeShort(lvar & 0xFFFF);
     }
   }
-
   /**
    * Generate code for an "ldc" instruction for the given constant pool
    * index (the "ldc_w" instruction is used if the index does not fit
    * into an unsigned byte).  The code is written to the supplied stream.
    */
-  private void code_ldc(int index, DataOutputStream out)
-      throws IOException {
+  private void code_ldc(int index, DataOutputStream out) throws IOException {
     assert index >= 0 && index <= 0xFFFF;
     if (index <= 0xFF) {
       out.writeByte(opc_ldc);
@@ -1078,7 +936,6 @@ public class SubclassMaker implements ClassConstants {
       out.writeShort(index & 0xFFFF);
     }
   }
-
   /**
    * Generate code to push a constant integer value on to the operand
    * stack, using the "iconst_<i>", "bipush", or "sipush" instructions
@@ -1099,7 +956,6 @@ public class SubclassMaker implements ClassConstants {
       throw new AssertionError();
     }
   }
-
   /**
    * Generate code to invoke the Class.forName with the name of the given
    * class to get its Class object at runtime.  The code is written to
@@ -1109,18 +965,12 @@ public class SubclassMaker implements ClassConstants {
   private void codeClassForName(Class cl, DataOutputStream out)
       throws IOException {
     code_ldc(cp.getString(cl.getName()), out);
-
     out.writeByte(opc_invokestatic);
-    out.writeShort(cp.getMethodRef(
-        "java/lang/Class",
-        "forName", "(Ljava/lang/String;)Ljava/lang/Class;"));
+    out.writeShort(cp.getMethodRef("java/lang/Class", "forName", "(Ljava/lang/String;)Ljava/lang/Class;"));
   }
-
-
     /*
      * ==================== General Utility Methods ====================
      */
-
   /**
    * Convert a fully qualified class name that uses '.' as the package
    * separator, the external representation used by the Java language
@@ -1131,13 +981,11 @@ public class SubclassMaker implements ClassConstants {
   private static String dotToSlash(String name) {
     return name.replace('.', '/');
   }
-
   /**
    * Return the "method descriptor" string for a method with the given
    * parameter types and return type.  See JVMS section 4.3.3.
    */
-  private static String getMethodDescriptor(Class[] parameterTypes,
-      Class returnType) {
+  private static String getMethodDescriptor(Class[] parameterTypes, Class returnType) {
     return getParameterDescriptors(parameterTypes) +
         ((returnType == void.class) ? "V" : getFieldType(returnType));
   }
@@ -1179,7 +1027,6 @@ public class SubclassMaker implements ClassConstants {
       return "L" + dotToSlash(type.getName()) + ";";
     }
   }
-
   /**
    * Returns a human-readable string representing the signature of a
    * method with the given name and parameter types.
@@ -1206,7 +1053,6 @@ public class SubclassMaker implements ClassConstants {
     sig.append(')');
     return sig.toString();
   }
-
   /**
    * Return the number of abstract "words", or consecutive local variable
    * indexes, required to contain a value of the given type.  See JVMS
@@ -1223,7 +1069,6 @@ public class SubclassMaker implements ClassConstants {
       return 1;
     }
   }
-
   /**
    * Add to the given list all of the types in the "from" array that
    * are not already contained in the list and are assignable to at
@@ -1246,7 +1091,6 @@ public class SubclassMaker implements ClassConstants {
       }
     }
   }
-
   /**
    * Given the exceptions declared in the throws clause of a proxy method,
    * compute the exceptions that need to be caught from the invocation
@@ -1325,35 +1169,27 @@ public class SubclassMaker implements ClassConstants {
    * primitive type can be obtained using the static "get" method.
    */
   private static class PrimitiveTypeInfo {
-
     /**
      * "base type" used in various descriptors (see JVMS section 4.3.2)
      */
     public String baseTypeString;
-
     /**
      * name of corresponding wrapper class
      */
     public String wrapperClassName;
-
     /**
      * method descriptor for wrapper class "valueOf" factory method
      */
     public String wrapperValueOfDesc;
-
     /**
      * name of wrapper class method for retrieving primitive value
      */
     public String unwrapMethodName;
-
     /**
      * descriptor of same method
      */
     public String unwrapMethodDesc;
-
-    private static Map<Class, PrimitiveTypeInfo> table =
-        new HashMap<>();
-
+    private static Map<Class, PrimitiveTypeInfo> table = new HashMap<>();
     static {
       add(byte.class, Byte.class);
       add(char.class, Character.class);
@@ -1364,31 +1200,21 @@ public class SubclassMaker implements ClassConstants {
       add(short.class, Short.class);
       add(boolean.class, Boolean.class);
     }
-
     private static void add(Class primitiveClass, Class wrapperClass) {
-      table.put(primitiveClass,
-          new PrimitiveTypeInfo(primitiveClass, wrapperClass));
+      table.put(primitiveClass, new PrimitiveTypeInfo(primitiveClass, wrapperClass));
     }
-
     private PrimitiveTypeInfo(Class primitiveClass, Class wrapperClass) {
       assert primitiveClass.isPrimitive();
-
-      baseTypeString =
-          Array.newInstance(primitiveClass, 0)
-              .getClass().getName().substring(1);
+      baseTypeString = Array.newInstance(primitiveClass, 0).getClass().getName().substring(1);
       wrapperClassName = dotToSlash(wrapperClass.getName());
-      wrapperValueOfDesc =
-          "(" + baseTypeString + ")L" + wrapperClassName + ";";
+      wrapperValueOfDesc = "(" + baseTypeString + ")L" + wrapperClassName + ";";
       unwrapMethodName = primitiveClass.getName() + "Value";
       unwrapMethodDesc = "()" + baseTypeString;
     }
-
     public static PrimitiveTypeInfo get(Class cl) {
       return table.get(cl);
     }
   }
-
-
   /**
    * A ConstantPool object represents the constant pool of a class file
    * being generated.  This representation of a constant pool is designed
@@ -1406,7 +1232,6 @@ public class SubclassMaker implements ClassConstants {
    * of a class file.
    */
   private static class ConstantPool {
-
     /**
      * list of constant pool entries, in constant pool index order.
      * <p>
@@ -1415,7 +1240,6 @@ public class SubclassMaker implements ClassConstants {
      * of this list corresponds to constant pool index 1.
      */
     private List<Entry> pool = new ArrayList<>(32);
-
     /**
      * maps constant pool data of all types to constant pool indexes.
      * <p>
@@ -1423,12 +1247,10 @@ public class SubclassMaker implements ClassConstants {
      * values of all types.
      */
     private Map<Object, Short> map = new HashMap<>(16);
-
     /**
      * true if no new constant pool entries may be added
      */
     private boolean readOnly = false;
-
     /**
      * Get or assign the index for a CONSTANT_Utf8 entry.
      */
@@ -1438,22 +1260,6 @@ public class SubclassMaker implements ClassConstants {
       }
       return getValue(s);
     }
-
-    /**
-     * Get or assign the index for a CONSTANT_Integer entry.
-     */
- /*       public short getInteger(int i) {
-            return getValue(i);
-        }
-*/
-    /**
-     * Get or assign the index for a CONSTANT_Float entry.
-     */
-/*        public short getFloat(float f) {
-            return getValue(f);
-        }
-*/
-
     /**
      * Get or assign the index for a CONSTANT_Class entry.
      */
@@ -1462,59 +1268,45 @@ public class SubclassMaker implements ClassConstants {
       return getIndirect(new IndirectEntry(
           CONSTANT_CLASS, utf8Index));
     }
-
     /**
      * Get or assign the index for a CONSTANT_String entry.
      */
     public short getString(String s) {
       short utf8Index = getUtf8(s);
-      return getIndirect(new IndirectEntry(
-          CONSTANT_STRING, utf8Index));
+      return getIndirect(new IndirectEntry(CONSTANT_STRING, utf8Index));
     }
-
     /**
      * Get or assign the index for a CONSTANT_FieldRef entry.
      */
-    public short getFieldRef(String className,
-        String name, String descriptor) {
+    public short getFieldRef(String className, String name, String descriptor) {
       short classIndex = getClass(className);
       short nameAndTypeIndex = getNameAndType(name, descriptor);
-      return getIndirect(new IndirectEntry(
-          CONSTANT_FIELD, classIndex, nameAndTypeIndex));
+      return getIndirect(new IndirectEntry(CONSTANT_FIELD, classIndex, nameAndTypeIndex));
     }
-
     /**
      * Get or assign the index for a CONSTANT_MethodRef entry.
      */
-    public short getMethodRef(String className,
-        String name, String descriptor) {
+    public short getMethodRef(String className, String name, String descriptor) {
       short classIndex = getClass(className);
       short nameAndTypeIndex = getNameAndType(name, descriptor);
-      return getIndirect(new IndirectEntry(
-          CONSTANT_METHOD, classIndex, nameAndTypeIndex));
+      return getIndirect(new IndirectEntry(CONSTANT_METHOD, classIndex, nameAndTypeIndex));
     }
-
     /**
      * Get or assign the index for a CONSTANT_InterfaceMethodRef entry.
      */
-    public short getInterfaceMethodRef(String className, String name,
-        String descriptor) {
+    public short getInterfaceMethodRef(String className, String name, String descriptor) {
       short classIndex = getClass(className);
       short nameAndTypeIndex = getNameAndType(name, descriptor);
-      return getIndirect(new IndirectEntry(
-          CONSTANT_INTERFACEMETHOD, classIndex, nameAndTypeIndex));
+      return getIndirect(new IndirectEntry(CONSTANT_INTERFACEMETHOD, classIndex, nameAndTypeIndex));
     }
-
     /**
      * Get or assign the index for a CONSTANT_NameAndType entry.
      */
     public short getNameAndType(String name, String descriptor) {
       short nameIndex = getUtf8(name);
       short descriptorIndex = getUtf8(descriptor);
-      return getIndirect(new IndirectEntry(
-          CONSTANT_NAMEANDTYPE, nameIndex, descriptorIndex));
+      return getIndirect(new IndirectEntry(CONSTANT_NAMEANDTYPE, nameIndex, descriptorIndex));
     }
-
     /**
      * Set this ConstantPool instance to be "read only".
      * <p>
@@ -1525,7 +1317,6 @@ public class SubclassMaker implements ClassConstants {
     public void setReadOnly() {
       readOnly = true;
     }
-
     /**
      * Write this constant pool to a stream as part of
      * the class file format.
@@ -1536,15 +1327,12 @@ public class SubclassMaker implements ClassConstants {
      */
     public void write(OutputStream out) throws IOException {
       DataOutputStream dataOut = new DataOutputStream(out);
-
       // constant_pool_count: number of entries plus one
       dataOut.writeShort(pool.size() + 1);
-
       for (Entry e : pool) {
         e.write(dataOut);
       }
     }
-
     /**
      * Add a new constant pool entry and return its index.
      */
@@ -1561,7 +1349,6 @@ public class SubclassMaker implements ClassConstants {
       }
       return (short) pool.size();
     }
-
     /**
      * Get or assign the index for an entry of a type that contains
      * a direct value.  The type of the given object determines the
@@ -1578,16 +1365,13 @@ public class SubclassMaker implements ClassConstants {
       if (index != null) {
         return index;
       } else {
-        if (readOnly) {
-          throw new InternalError(
-              "late constant pool addition: " + key);
+        if (readOnly) {throw new InternalError("late constant pool addition: " + key);
         }
         short i = addEntry(new ValueEntry(key));
         map.put(key, i);
         return i;
       }
     }
-
     /**
      * Get or assign the index for an entry of a type that contains
      * references to other constant pool entries.
@@ -1605,16 +1389,13 @@ public class SubclassMaker implements ClassConstants {
         return i;
       }
     }
-
     /**
      * Entry is the abstact superclass of all constant pool entry types
      * that can be stored in the "pool" list; its purpose is to define a
      * common method for writing constant pool entries to a class file.
      */
     private static abstract class Entry {
-
-      public abstract void write(DataOutputStream out)
-          throws IOException;
+      public abstract void write(DataOutputStream out) throws IOException;
     }
 
     /**
@@ -1626,13 +1407,10 @@ public class SubclassMaker implements ClassConstants {
      * Map "map", so no useful hashCode or equals methods are defined.
      */
     private static class ValueEntry extends Entry {
-
       private Object value;
-
       public ValueEntry(Object value) {
         this.value = value;
       }
-
       public void write(DataOutputStream out) throws IOException {
         if (value instanceof String) {
           out.writeByte(CONSTANT_UTF8);
@@ -1654,7 +1432,6 @@ public class SubclassMaker implements ClassConstants {
         }
       }
     }
-
     /**
      * IndirectEntry represents a constant pool entry of a type that
      * references other constant pool entries, i.e., the following types:
@@ -1671,11 +1448,9 @@ public class SubclassMaker implements ClassConstants {
      * to allow matching.
      */
     private static class IndirectEntry extends Entry {
-
       private int tag;
       private short index0;
       private short index1;
-
       /**
        * Construct an IndirectEntry for a constant pool entry type
        * that contains one index of another entry.
@@ -1685,7 +1460,6 @@ public class SubclassMaker implements ClassConstants {
         this.index0 = index;
         this.index1 = 0;
       }
-
       /**
        * Construct an IndirectEntry for a constant pool entry type
        * that contains two indexes for other entries.
@@ -1695,7 +1469,6 @@ public class SubclassMaker implements ClassConstants {
         this.index0 = index0;
         this.index1 = index1;
       }
-
       public void write(DataOutputStream out) throws IOException {
         out.writeByte(tag);
         out.writeShort(index0);
@@ -1710,11 +1483,9 @@ public class SubclassMaker implements ClassConstants {
           out.writeShort(index1);
         }
       }
-
       public int hashCode() {
         return tag + index0 + index1;
       }
-
       public boolean equals(Object obj) {
         if (obj instanceof IndirectEntry) {
           IndirectEntry other = (IndirectEntry) obj;

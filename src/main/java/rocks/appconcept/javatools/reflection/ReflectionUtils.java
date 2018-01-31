@@ -2,6 +2,7 @@ package rocks.appconcept.javatools.reflection;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -188,7 +189,7 @@ public class ReflectionUtils {
     return o == null ? "null" : o.getClass().getName();
   }
 
-  public static String getClassNameFromByteCode(byte[] byteCode) throws Exception {
+  public static String getClassNameFromByteCode(byte[] byteCode) throws IOException {
     InputStream is = new ByteArrayInputStream(byteCode);
     DataInputStream dis = new DataInputStream(is);
     dis.readLong(); // skip header and class version

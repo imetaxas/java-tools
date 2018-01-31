@@ -22,6 +22,5 @@ public class ProfilerTest extends TestCase {
 
     assertEquals(10, counter.get());
     assertNotNull(profile);
-
   }
 }

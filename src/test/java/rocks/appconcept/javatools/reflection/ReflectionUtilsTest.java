@@ -22,7 +22,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Test;
 import rocks.appconcept.javatools.CoverageTool;
-import rocks.appconcept.javatools.reflection.ReflectionUtils;
+import rocks.appconcept.javatools.reflection.maker.SubclassMaker;
 
 /**
  * Created by imeta on 22-Jan-17.
@@ -235,6 +235,15 @@ public class ReflectionUtilsTest {
   @Test
   public void testGetClassAnnotationsWithNull() throws Exception {
     assertNull(ReflectionUtils.getClassAnnotation(null, null));
+  }
+
+  @Test
+  public void getClassNameFromByteCode() throws Exception {
+    byte[] classFilename = SubclassMaker
+          .makeSubclass("rocks.appconcept.javatools.reflection.maker.ClassFile", Class.forName("rocks.appconcept.javatools.reflection.maker.ClassFile"));
+
+    assertEquals(ReflectionUtils.getClassNameFromByteCode(classFilename),
+        "rocks.appconcept.javatools.reflection.maker.ClassFile");
   }
 
   @After
