@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/imetaxas/java-tools.svg?branch=master)](https://travis-ci.org/imetaxas/java-tools)
-[![Coverage Status](https://coveralls.io/repos/github/imetaxas/java-tools/badge.svg?branch=master&service=github)](https://coveralls.io/github/imetaxas/java-tools?branch=master)
 [![CodeCov Coverage](https://codecov.io/gh/imetaxas/java-tools/graph/badge.svg?branch=master)](https://codecov.io/gh/imetaxas/java-tools?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
