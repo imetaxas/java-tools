@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/imetaxas/java-tools.svg?branch=master)](https://travis-ci.org/imetaxas/java-tools)
 [![Coverage Status](https://coveralls.io/repos/github/imetaxas/java-tools/badge.svg?branch=master&service=github)](https://coveralls.io/github/imetaxas/java-tools?branch=master)
+[![CodeCov Coverage](https://codecov.io/gh/imetaxas/java-tools/graph/badge.svg?branch=master)](https://codecov.io/gh/imetaxas/java-tools?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Java Tools
@@ -23,6 +24,7 @@ A collection of tested re-usable Java classes.
   * Exception utilities
   * Security Manager
   * Conditions using Consumer and Supplier - Effective Java: Avoid Unnecessary use of checked exceptions
+  * Objects equality, How to test -  Effective Java Chapter 3: Make sure that equals and hash code are reflexive, symmetric, and transitive
 
 Build
 -------
